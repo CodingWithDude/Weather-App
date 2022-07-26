@@ -5,26 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script
+      src="https://kit.fontawesome.com/aa27ee4dff.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div>
-      <form id="location-search-form">
-        <label for="input-search-location">Location</label>
-        <input
-          type="text"
-          list="locations"
-          name="input-search-location"
-          id="input-search-location"
-        />
-        <button
-          type="submit"
-          name="submit-search-location"
-          id="submit-search-location"
-        >
-          Search
-        </button>
-      </form>
-      <p id="errorMsg"></p>
+      <header>
+        <div class="logo">
+          <i class="fa-solid fa-umbrella"></i>
+          <h1>Weather Dude</h1>
+        </div>
+      </header>
+      <nav>
+        <form id="location-search-form">
+          <input
+            type="text"
+            list="locations"
+            name="input-search-location"
+            id="input-search-location"
+          />
+          <button
+            type="submit"
+            name="submit-search-location"
+            id="submit-search-location"
+          >
+            Search
+          </button>
+        </form>
+        <p id="errorMsg" class=".disable-select"></p>
+      </nav>
     </div>
+    <main></main>
   </body>
 </html>

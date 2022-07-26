@@ -5,6 +5,7 @@ import { titleCase } from "title-case";
 const lookup = require("country-code-lookup");
 
 const API_KEY = "07006f47faeeb182ebfc9361681cc9b0";
+
 const locationSearchForm = document.getElementById("location-search-form");
 const inputSearchLocation = document.getElementById("input-search-location");
 const submitSearchLocation = document.getElementById("submit-search-location");
@@ -43,7 +44,7 @@ async function geocodingZipcode(input) {
     `http://api.openweathermap.org/geo/1.0/zip?zip=${input}&appid=${API_KEY}`
   );
   const data = await response.json();
-  getWeather(data);
+  getCurrentWeather(data);
 }
 
 // Coordinates by location name
@@ -57,14 +58,14 @@ async function getCoordinatesByLocationName(input) {
       return;
     }
     const data = await response.json();
-    getWeather(data[0]);
+    getCurrentWeather(data[0]);
   } catch {
     error();
   }
 }
 
 // Weather Request
-async function getWeather(location) {
+async function getCurrentWeather(location) {
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
@@ -78,11 +79,15 @@ async function getWeather(location) {
 }
 
 function error() {
-  errorMsg.innerText = `Location not found.
-  Search must be in the form of "City", "City, State", "City, Country", or "Zipcode, Country".`;
+  errorMsg.innerText = `Location not found. Search must be in the form of:
+  "City", "City, State", "City, Country", or "Zipcode, Country".`;
+  errorMsg.classList.add("active-error");
+  errorMsg.classList.remove("inactive-error");
 }
 
 function resetInputAndError() {
   errorMsg.innerText = "";
   inputSearchLocation.value = "";
+  errorMsg.classList.add("inactive-error");
+  errorMsg.classList.remove("active-error");
 }
