@@ -1,4 +1,5 @@
 import { error, resetInputAndError } from "./utils";
+import { renderCurrentWeather } from "./domFunctions";
 
 const API_KEY = "07006f47faeeb182ebfc9361681cc9b0";
 
@@ -30,10 +31,6 @@ async function getCoordinatesByLocationName(input) {
     const response = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${API_KEY}`
     );
-    if (!response.ok) {
-      error();
-      return;
-    }
     const data = await response.json();
     getCurrentWeather(data[0]);
   } catch {
@@ -49,6 +46,7 @@ async function getCurrentWeather(location) {
     );
     const data = await response.json();
     console.log(data);
+    renderCurrentWeather(data);
     resetInputAndError();
   } catch {
     error();

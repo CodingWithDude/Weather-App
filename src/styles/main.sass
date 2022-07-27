@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300;400;500;600;700&display=swap')
 
+$imageSource: "../assets/images"
+
 // Fonts
 $ff-primary: 'Poppins', sans-serif
 $ff-logo: 'Fredoka One', sans-serif
@@ -12,32 +14,56 @@ $fw-semibold: 600
 $fw-bold: 700
 
 // Colors
-$bgc-header: #87DFD6
-$c-header: #2D4A47
+$bgc-header: #003746
+$c-header: #05beac
 
 $bgc-nav: #DFF5F2
 
-$c-input: #2D4A47
-$border-input: #2D4A47
-$outline-input: #83EBA6
+$c-input: #003746
+$border-input: #003746
+$outline-input: #05beac
 
-$bgc-search-btn: #83EBA6
-$c-search-btn: #2D4A47
-$bgc-search-btn-hover: #DFF5F2
-$border-search-btn-hover: #83EBA6
+$bgc-search-btn: #DFF5F2
+$c-search-btn: #003746
+$border-search-btn: #003746
+$border-search-btn-active: #05beac
+
+$c-error-message: #05beac
+
+$c-main: #DFF5F2
+
+//   $bgc-header: #87DFD6
+// $c-header: #2D4A47
+
+// $bgc-nav: #DFF5F2
+
+// $c-input: #2D4A47
+// $border-input: #2D4A47
+// $outline-input: #87DFD6
+
+// $bgc-search-btn: #87DFD6
+// $c-search-btn: #2D4A47
+// $bgc-search-btn-hover: #DFF5F2
+// $border-search-btn-hover: #87DFD6  
 
 // Defaults
 $border-radius: 25px
 
-html
+body
   height: 100vh
   width: 100vw
-
-body
-  min-width: 100vw
   display: flex
-  justify-content: center
+  flex-direction: column
+  align-items: center
   font-family: $ff-primary
+  background-image: url('/src/assets/images/background.jpg')
+  background-position: center center
+  background-attachment: fixed
+  background-repeat: no-repeat
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  -o-background-size: cover
+  background-size: cover
 
 header
   min-width: 100vw
@@ -58,14 +84,18 @@ nav
   display: flex
   flex-direction: column
   justify-content: center
-  background-color: $bgc-nav
+  align-items: center
+  gap: 5px
+  background-color: transparent
   padding: 15px 15px
   form
     display: flex
     justify-content: center
-    gap: 15px
+    gap: 10px
     align-items: center
     input
+      height: 21px
+      background-color: $bgc-nav
       color: $c-input
       font-weight: $fw-medium
       border-radius: $border-radius
@@ -82,27 +112,34 @@ nav
       padding: 1px 10px
       background-color: $bgc-search-btn
       color: $c-search-btn
-      border: 2px solid transparent
+      border: 2px solid $border-search-btn
       border-radius: $border-radius
       transition-duration: 400ms
 
-    button:hover
-      border: 2px solid $border-search-btn-hover
-      background-color: $bgc-search-btn-hover
-
     button:active
-      transform: scale(.9)
+      border: 2px solid $border-search-btn-active
 
   .active-error
-    display: block
-    padding-top: 10px
+    width: fit-content
+    padding: 5px 10px
     text-align: center
-    font-size: .6rem
-    font-weight: $fw-light
+    font-size: .54rem
+    font-weight: $fw-regular
+    color: $c-error-message
+    background: rgba(0, 0, 0, 0.4)
+    border-radius: 10px
 
   .inactive-error
     display: unset
     padding: 0
+main
+  padding: 0 15px
+  min-width: 100vw
+  display: flex
+  flex-direction: column
+  flex-grow: 1
+  color: $c-main
+  font-weight: $fw-medium
 
 .disable-select
   user-select: none // supported by Chrome and Opera

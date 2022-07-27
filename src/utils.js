@@ -2,6 +2,7 @@ import { titleCase } from "title-case";
 
 const lookup = require("country-code-lookup");
 
+const inputSearchLocation = document.getElementById("input-search-location");
 const errorMsg = document.getElementById("errorMsg");
 
 // Converts countries to iso2 country code
