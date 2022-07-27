@@ -20,7 +20,8 @@ function inputHandler(input) {
 // Coordinates by zipcode
 async function geocodingZipcode(input) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/zip?zip=${input}&appid=${API_KEY}`
+    `http://api.openweathermap.org/geo/1.0/zip?zip=${input}&appid=${API_KEY}`,
+    { mode: "cors" }
   );
   const data = await response.json();
   getCurrentWeather(data);
@@ -30,7 +31,8 @@ async function geocodingZipcode(input) {
 async function getCoordinatesByLocationName(input) {
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${API_KEY}`,
+      { mode: "cors" }
     );
     const data = await response.json();
     getCurrentWeather(data[0]);
@@ -43,7 +45,8 @@ async function getCoordinatesByLocationName(input) {
 async function getCurrentWeather(location) {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`,
+      { mode: "cors" }
     );
     const data = await response.json();
     console.log(data);
