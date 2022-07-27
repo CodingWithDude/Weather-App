@@ -20,7 +20,7 @@ function inputHandler(input) {
 // Coordinates by zipcode
 async function geocodingZipcode(input) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/zip?zip=${input}&appid=${API_KEY}`,
+    `https://api.openweathermap.org/geo/1.0/zip?zip=${input}&appid=${API_KEY}`,
     { mode: "cors" }
   );
   const data = await response.json();
@@ -31,7 +31,7 @@ async function geocodingZipcode(input) {
 async function getCoordinatesByLocationName(input) {
   try {
     const response = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${API_KEY}`,
+      `https://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${API_KEY}`,
       { mode: "cors" }
     );
     const data = await response.json();
