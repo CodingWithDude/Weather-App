@@ -10,3 +10,5 @@ locationSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   inputHandler(inputSearchLocation.value);
 });
+
+// inputHandler("phoenix");

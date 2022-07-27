@@ -1,5 +1,6 @@
 import { error, resetInputAndError } from "./utils";
-import { renderCurrentWeather } from "./domFunctions";
+import { formatCurrentWeather } from "./utils";
+import { countryToCode } from "./utils";
 
 const API_KEY = "07006f47faeeb182ebfc9361681cc9b0";
 
@@ -46,7 +47,7 @@ async function getCurrentWeather(location) {
     );
     const data = await response.json();
     console.log(data);
-    renderCurrentWeather(data);
+    formatCurrentWeather(data);
     resetInputAndError();
   } catch {
     error();

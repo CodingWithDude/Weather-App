@@ -37,11 +37,40 @@
         <p id="errorMsg" class=".disable-select"></p>
       </nav>
     </div>
-    <main id="main-container">
+    <main id="main-container" class="hide">
       <div class="current-weather">
-        <h1 data-name></h1>
-        <p data-main></p>
-        <p data-description></p>
+        <div class="current-weather-left">
+          <p data-weather-description></p>
+          <div class="name-date-container">
+            <p data-name></p>
+            <p data-date-today></p>
+          </div>
+          <p data-main-temp></p>
+        </div>
+        <div class="current-weather-right">
+          <div class="feels-like-container">
+            <div class="current-weather-right-container">
+              <p class="current-weather-right-title">Feels Like</p>
+              <p data-main-feels_like></p>
+            </div>
+          </div>
+
+          <div class="humidity-container">
+            <div class="current-weather-right-container">
+              <p class="current-weather-right-title">Humidity</p>
+              <p data-main-humidity></p>
+            </div>
+          </div>
+          <div class="wind-speed-container">
+            <div class="current-weather-right-container">
+              <p class="current-weather-right-title">Wind Speed</p>
+              <div class="wind-speed-symbol-container">
+                <p data-wind-speed></p>
+                <p class="data-wind-speed-symbol" data-wind-speed-symbol></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </body>
