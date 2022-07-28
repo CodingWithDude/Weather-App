@@ -7,9 +7,14 @@ const humidity = document.querySelector("[data-main-humidity]");
 const wind = document.querySelector("[data-wind-speed]");
 const speedUnitSymbol = document.querySelector("[data-wind-speed-symbol]");
 const todaysDate = document.querySelector("[data-date-today]");
+const tempUnitSymbol = document.querySelector("[data-temp-unit-symbol]");
 
 async function renderCurrentWeather(input) {
-  mainContainer.classList.toggle("hide");
+  if (mainContainer.classList.contains("hide")) {
+    mainContainer.classList.toggle("hide");
+  }
+  resetCurrentDisplayUnit();
+  console.log("here");
   currentDescription.textContent = input.currentDescription;
   name.textContent = input.name;
   currentTemp.textContent = `${input.currentTemp}${input.tempUnitSymbol}`;
@@ -19,12 +24,20 @@ async function renderCurrentWeather(input) {
   wind.textContent = `${input.wind}`;
   speedUnitSymbol.textContent = `${input.speedUnitSymbol}`;
   todaysDate.textContent = `${input.todaysDate}`;
+  tempUnitSymbol.textContent = `Display ${input.tempUnitSymbol}`;
 }
 
-function resetCurrentWeather() {
-  name.textContent = "";
-
-  currentDescription.textContent = "";
+function resetCurrentDisplayUnit() {
+  currentDescription.textContent = null;
+  name.textContent = null;
+  currentTemp.textContent = null;
+  todaysDate.textContent = null;
+  feelsLike.textContent = null;
+  humidity.textContent = null;
+  wind.textContent = null;
+  speedUnitSymbol.textContent = null;
+  todaysDate.textContent = null;
+  tempUnitSymbol.textContent = null;
 }
 
 export { renderCurrentWeather };

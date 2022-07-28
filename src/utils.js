@@ -1,11 +1,42 @@
 import { titleCase } from "title-case";
 import { renderCurrentWeather } from "./domFunctions";
+import { inputHandler } from "./apiFunctions";
 import date from "date-and-time";
 
 const lookup = require("country-code-lookup");
 
+// const LOCAL_STORAGE_DEFAULT_LOCATION_KEY = "weather.default_location";
+const LOCAL_STORAGE_CURRENT_LOCATION_KEY = "weather.current_location";
+const LOCAL_STORAGE_CURRENT_DISPLAY_UNIT_KEY = "weather.display_unit";
+let currentLocation =
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_CURRENT_LOCATION_KEY)) ||
+  "phoenix";
+let currentDisplayUnit =
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_CURRENT_DISPLAY_UNIT_KEY)) ||
+  "fahrenheit";
+
 const inputSearchLocation = document.getElementById("input-search-location");
 const errorMsg = document.getElementById("errorMsg");
+const displayBtn = document.querySelector("[data-temp-unit-symbol]");
+
+window.addEventListener("load", () => {
+  inputHandler(`${currentLocation}`);
+});
+
+displayBtn.addEventListener("click", (e) => {
+  changeDisplayUnit();
+});
+
+function save() {
+  localStorage.setItem(
+    LOCAL_STORAGE_CURRENT_LOCATION_KEY,
+    JSON.stringify(currentLocation)
+  );
+  localStorage.setItem(
+    LOCAL_STORAGE_CURRENT_DISPLAY_UNIT_KEY,
+    JSON.stringify(currentDisplayUnit)
+  );
+}
 
 // Converts countries to iso2 country code
 function countryToCode(countryName) {
@@ -29,28 +60,32 @@ function resetInputAndError() {
   errorMsg.classList.remove("active-error");
 }
 
-function currentTempUnit() {
-  return "fahrenheit";
+function getCurrentDisplayUnit() {
+  return currentDisplayUnit;
 }
 
-function changeTempUnit(currentUnit) {
-  if (currentUnit === "celsius") {
-    return "fahrenheit";
+function changeDisplayUnit() {
+  if (getCurrentDisplayUnit() === "celsius") {
+    currentDisplayUnit = "fahrenheit";
+    save();
+    inputHandler(`${currentLocation}`);
   } else {
-    return "celsius";
+    currentDisplayUnit = "celsius";
+    save();
+    inputHandler(`${currentLocation}`);
   }
 }
 
-function getTempUnit(input) {
-  if (currentTempUnit() === "fahrenheit") {
+function displayUnit(input) {
+  if (getCurrentDisplayUnit() === "fahrenheit") {
     return kelvinToFahrenheit(input);
   } else {
     return kelvinToCelsius(input);
   }
 }
 
-function getTempUnitSymbol() {
-  if (currentTempUnit() === "fahrenheit") {
+function getDisplayUnitSymbol() {
+  if (getCurrentDisplayUnit() === "fahrenheit") {
     return "°F";
   } else {
     return "°C";
@@ -58,7 +93,7 @@ function getTempUnitSymbol() {
 }
 
 function metersPerSecondToMilesPerHour(input) {
-  if (currentTempUnit() === "fahrenheit") {
+  if (getCurrentDisplayUnit() === "fahrenheit") {
     return Math.floor(2.23694 * Number(input));
   } else {
     return Math.floor(input);
@@ -66,7 +101,7 @@ function metersPerSecondToMilesPerHour(input) {
 }
 
 function getSpeedUnitSymbol() {
-  if (currentTempUnit() === "fahrenheit") {
+  if (getCurrentDisplayUnit() === "fahrenheit") {
     return "mph";
   } else {
     return "m/s";
@@ -83,18 +118,17 @@ function kelvinToCelsius(input) {
 
 function getTodaysDate() {
   const now = new Date();
-  console.log(date.format(now, "ddd, MMM DD YYYY"));
   return date.format(now, "ddd, MMM DD YYYY");
 }
 
 function formatCurrentWeather(input) {
   const currentDescription = titleCase(input.weather[0].description);
   const name = input.name;
-  const currentTemp = getTempUnit(input.main.temp);
-  const feelsLike = getTempUnit(input.main.feels_like);
+  const currentTemp = displayUnit(input.main.temp);
+  const feelsLike = displayUnit(input.main.feels_like);
   const humidity = input.main.humidity;
   const wind = metersPerSecondToMilesPerHour(input.wind.speed);
-  const tempUnitSymbol = getTempUnitSymbol();
+  const tempUnitSymbol = getDisplayUnitSymbol();
   const speedUnitSymbol = getSpeedUnitSymbol();
   const todaysDate = getTodaysDate();
 
@@ -109,8 +143,10 @@ function formatCurrentWeather(input) {
     speedUnitSymbol: `${speedUnitSymbol}`,
     todaysDate: `${todaysDate}`,
   };
-
   renderCurrentWeather(formattedData);
+  currentLocation = name;
+  save();
 }
 
-export { countryToCode, error, resetInputAndError, formatCurrentWeather };
+// inputHandler(currentLocation);
+export { countryToCode, error, resetInputAndError, formatCurrentWeather, save };
