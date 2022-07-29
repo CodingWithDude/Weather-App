@@ -159,9 +159,11 @@ main
       .name-date-container
         display: flex
         flex-direction: column
-        gap: 3px
+        gap: 4px
 
       .main-temp-container
+        display: flex
+        flex-direction: column
 
         [data-temp-unit-symbol]
           max-width: fit-content
@@ -179,6 +181,7 @@ main
       .current-weather-right-container
         display: flex
         flex-direction: column
+        max-width: min-content
 
       .current-weather-right-title
         font-size: .35em
@@ -189,8 +192,10 @@ main
         min-width: fit-content
 
       .humidity-container,.feels-like-container, .wind-speed-container
-        display: flex
-        gap: 5px
+        display: grid
+        align-items: center
+        grid-template-columns: .4fr 1fr
+        gap: 10px
 
       .wind-speed-symbol-container
         display: flex
@@ -207,6 +212,11 @@ main
   -khtml-user-select: none // Konqueror HTML
   -moz-user-select: none // Firefox
   -ms-user-select: none // Internet Explorer/Edge
+
+svg
+  width: 25px
+  height: auto
+  fill: $c-main
 
 @media only screen and (min-width: 320px)
   header
@@ -235,4 +245,4 @@ main
 
   main
     font-size: 1rem
-    padding: 0 15%
+    padding: 0 25%

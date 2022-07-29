@@ -48,11 +48,8 @@ async function getCurrentWeather(location) {
       `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`,
       { mode: "cors" }
     );
-
     const data = await response.json();
-
     formatCurrentWeather(data);
-    console.log(data);
     resetInputAndError();
   } catch {
     error();
